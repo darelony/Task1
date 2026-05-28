@@ -1,49 +1,50 @@
-# 🛡️ Insurance Management System
+# 🐾 Pet Management System
 
-A modern full-stack web application for managing insurance clients and their active insurance policies.
-The platform enables insurance agents to register users, manage policy assignments, upload profile avatars, and maintain detailed customer records through an interactive and responsive interface.
+A modern full-stack web application for managing pets and veterinarian records inside a veterinary clinic.
+The platform enables clinic staff to register pets, assign veterinarians, manage vaccination status, and monitor pet activity through an interactive and responsive dashboard.
 
-This project demonstrates practical backend and full-stack development concepts including REST APIs, relational database design, file uploads, dynamic UI rendering, and many-to-many database relationships.
+This project demonstrates practical full-stack and backend development concepts including REST APIs, relational database modeling, CRUD operations, dynamic UI rendering, filtering systems, and server-side validation.
 
 ---
 
 # 🚀 Features
 
-## 👤 User Management
+## 🐶 Pet Management
 
-* Create, view, and delete client profiles
-* Expandable user detail cards
-* Real-time search and filtering
-* Dynamic sorting functionality
+* Create new pet records
+* Delete existing pets
+* Assign veterinarians
+* Toggle active/inactive pet status
+* Dynamic pet image assignment based on animal type
 
-## 📑 Policy Management
+## 💉 Vaccination System
 
-* Assign insurance policies to users
-* Remove active policies
-* Duplicate policy prevention
-* Policy visualization using custom icons
+* One-click vaccination functionality
+* Real-time vaccination status updates
+* Automatic prevention of duplicate vaccinations
+* Backend validation with proper HTTP error responses
 
-## 🖼️ Avatar Upload System
+## 🔍 Filtering & Search
 
-* Upload and update profile images
-* Automatic avatar refresh
-* Local file storage support
+* Search pets by name
+* Filter pets by animal type
+* Filter pets by assigned veterinarian
+* Real-time dynamic filtering
 
-## 🔍 Advanced UI Features
+## 🖥️ Frontend Dashboard
 
-* Responsive data table layout
-* Real-time filtering and sorting
-* Confirmation modals
-* Form validation
+* Responsive pet cards interface
+* Alternative table-based data view
+* Interactive UI components
+* Form validation for new pet registration
 
 ## ⚙️ Backend Functionality
 
 * RESTful API architecture
-* Sequelize ORM integration
-* Many-to-many database relationships
-* Centralized error handling
-* Database lifecycle hooks
-* Static file serving
+* Relational database relationships
+* Automatic database seeding
+* Server-side validation
+* Modular backend structure
 
 ---
 
@@ -55,7 +56,6 @@ This project demonstrates practical backend and full-stack development concepts 
 * Express.js
 * Sequelize ORM
 * SQLite
-* Multer
 * Dotenv
 * Cors
 
@@ -63,49 +63,50 @@ This project demonstrates practical backend and full-stack development concepts 
 
 * React.js
 * Axios
-* CSS Modules
+* React Router DOM
+* CSS3
 
 ---
 
 # 🧩 Database Architecture
 
-The application uses a relational database structure with a Many-to-Many relationship between:
+The application uses a relational database structure with a One-to-Many relationship between:
 
-* `Users`
-* `Policies`
+* `Veterinarian`
+* `Pet`
 
-connected through:
+where:
 
-* `UserPolicy`
+* One veterinarian can manage multiple pets
+* Each pet belongs to a single veterinarian
 
-This architecture allows:
+The system also includes:
 
-* Multiple users to own multiple policies
-* Efficient querying and policy assignment
-* Duplicate prevention using composite indexes
+* vaccination status tracking
+* active/inactive state management
+* dynamic asset assignment
 
 ---
 
 # 📂 Project Structure
 
-```text
+```text id="b1h4zc"
 ├── backend/
-│   ├── config/
-│   ├── controllers/
 │   ├── models/
-│   ├── routes/
-│   ├── seed/
-│   ├── uploads/
-│   ├── app.js
+│   │   ├── Pet.js
+│   │   └── Veterinarian.js
+│   ├── database.js
+│   ├── seed.js
 │   └── server.js
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── api/
 │   │   ├── components/
-│   │   ├── pages/
+│   │   │   ├── AddPetForm.js
+│   │   │   ├── PetCards.js
+│   │   │   └── PetTable.js
 │   │   ├── App.js
-│   │   └── index.css
+│   │   └── index.js
 ```
 
 ---
@@ -114,8 +115,8 @@ This architecture allows:
 
 ## 1️⃣ Clone the Repository
 
-```bash
-git clone https://github.com/yourusername/insurance-management-system.git
+```bash id="v9z21h"
+git clone https://github.com/yourusername/pet-management-system.git
 ```
 
 ---
@@ -124,33 +125,33 @@ git clone https://github.com/yourusername/insurance-management-system.git
 
 Navigate to the backend directory:
 
-```bash
+```bash id="7zxf1u"
 cd backend
 ```
 
 Install dependencies:
 
-```bash
+```bash id="c8p7ql"
 npm install
-```
-
-Seed the database:
-
-```bash
-node seed/seed.js
 ```
 
 Start the backend server:
 
-```bash
+```bash id="k8v0qp"
 node server.js
 ```
 
-Backend server runs on:
+Backend runs on:
 
-```text
+```text id="4fxjkw"
 http://localhost:5000
 ```
+
+The server automatically seeds the database with:
+
+* veterinarians
+* pets
+* initial clinic data
 
 ---
 
@@ -158,25 +159,25 @@ http://localhost:5000
 
 Open a separate terminal window:
 
-```bash
+```bash id="v8gc4q"
 cd frontend
 ```
 
-Install dependencies:
+Install frontend dependencies:
 
-```bash
+```bash id="rh54ae"
 npm install
 ```
 
 Start the React application:
 
-```bash
+```bash id="i57m2q"
 npm start
 ```
 
 Frontend runs on:
 
-```text
+```text id="nlmfr8"
 http://localhost:3000
 ```
 
@@ -184,42 +185,41 @@ http://localhost:3000
 
 # 🔌 API Endpoints
 
-| Method | Route                           | Description                   |
-| ------ | ------------------------------- | ----------------------------- |
-| GET    | `/users`                        | Get all users                 |
-| GET    | `/users/:id`                    | Get detailed user information |
-| POST   | `/users`                        | Create new user               |
-| DELETE | `/users/:id`                    | Delete user                   |
-| POST   | `/users/:id/policies/:policyId` | Assign policy                 |
-| DELETE | `/users/:id/policies/:policyId` | Remove policy                 |
-| POST   | `/users/:id/avatar`             | Upload avatar                 |
-| GET    | `/policies`                     | Get all policies              |
+| Method | Route                 | Description                         |
+| ------ | --------------------- | ----------------------------------- |
+| GET    | `/vets`               | Get all veterinarians               |
+| GET    | `/pets`               | Get all pets with veterinarian data |
+| POST   | `/pets`               | Create new pet                      |
+| PATCH  | `/pets/:id/status`    | Toggle pet active status            |
+| PATCH  | `/pets/:id/vaccinate` | Vaccinate pet                       |
+| DELETE | `/pets/:id`           | Delete pet                          |
 
 ---
 
 # 🎯 Key Concepts Demonstrated
 
-* Full-stack application architecture
-* REST API development
+* Full-stack application development
+* REST API design
 * CRUD operations
 * Relational database modeling
-* Many-to-Many relationships
-* File upload handling
-* Dynamic frontend state management
-* Error handling and validation
-* Modular backend structure
+* One-to-Many relationships
+* Backend validation
+* Dynamic filtering systems
+* State management
+* Real-time UI updates
+* Modular architecture
 
 ---
 
 # 📌 Future Improvements
 
 * JWT Authentication & Authorization
-* Role-based access control
-* Cloud image storage
-* Pagination support
+* Role-based permissions
+* Appointment scheduling
+* Medical history tracking
 * Docker containerization
 * Unit and integration testing
-* Deployment pipeline
+* Cloud deployment
 
 ---
 
