@@ -1,4 +1,4 @@
-# 🐾 Pet Management System (Task 1)
+# 🐾 Pet Management System 
 
 Ovo je kompletna **full-stack** web aplikacija za upravljanje evidencijom kućnih ljubimaca i veterinara unutar klinike. Projekat se sastoji od **Node.js/Express** bekenda koji koristi **Sequelize ORM** za komunikaciju sa bazom podataka i **React** fontenda za interaktivan prikaz i upravljanje podacima.
 
